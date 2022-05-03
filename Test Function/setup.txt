@@ -1,0 +1,32 @@
+wget https://nvidia.box.com/shared/static/p57jwntv436lfrd78inwl7iml6p13fzh.whl -O torch-1.8.0-cp36-cp36m-linux_aarch64.whl
+sudo apt-get install python3-pip libopenblas-base libopenmpi-dev libomp-dev
+pip3 install Cython
+pip3 install numpy torch-1.8.0-cp36-cp36m-linux_aarch64.whl
+
+sudo apt-get install libjpeg-dev zlib1g-dev libpython3-dev libavcodec-dev libavformat-dev libswscale-dev
+git clone --branch v0.9.0 https://github.com/pytorch/vision torchvision
+cd torchvision
+export BUILD_VERSION=0.9.0
+python3 setup.py install --user
+
+pip3 install pillow==5.4.1
+sudo apt-get install python3-matplotlib
+sudo apt install python3-seaborn
+sudo pip3 uninstall numpy
+sudo pip3 install numpy==1.16.4
+30/9 12/12 11/9 5/4
+
+sudo systemctl disable nvzramconfig
+sudo fallocate -l 4G /mnt/4GB.swap
+sudo mkswap /mnt/4GB.swap
+sudo swapon /mnt/4GB.swap
+
+sudo apt-get install cmake libopenblas-dev liblapack-dev libjpeg-dev
+wget http://dlib.net/files/dlib-19.17.tar.bz2
+tar jxvf dlib-19.17.tar.bz2
+cd dlib-19.17/dlib/cuda 
+gedit cudnn_dlibapi.cpp
+- edit : comment forward_algo = forward_best_algo; 
+cd dlib-19.17
+sudo python3 setup.py install
+sudo pip3 install face_recognition
