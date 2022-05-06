@@ -2,6 +2,26 @@ import cv2
 #from load_custom_model import loadCustomModel
 import numpy as np
 import time
+import serial
+
+def initConnection(portNo, baudRate):
+	try:
+		ser = serial.Serial(portNo, baudRate)
+		print("Device Connected")
+		return ser
+	except:
+		print("Not Connected")
+
+def sendData(se, data, digits):
+	myString = "$"
+	for d in data:
+		myString += str(d).zfill(digits)
+	try:
+		se.write(myString.encode())
+		print(myString)
+	except:
+		print("Data Transmission Failed")
+ser = initConnection("/dev/ttyACM0", 9600)  
 
 #model = loadCustomModel(path='best.pt', conf=0.4, iou=0.7)
 dispW=640
@@ -30,7 +50,7 @@ while(True):
     pTime = cTime
     cv2.putText(frame, f'{int(fps)}', (50, 100), cv2.FONT_HERSHEY_PLAIN, 5,
                 (255, 0, 0), 5)
-
+    sendData(ser, [1, 2], 3)
     cv2.imshow('frame', frame)
     #time.sleep(0.5)
     if cv2.waitKey(1) & 0xFF == ord('q'):
